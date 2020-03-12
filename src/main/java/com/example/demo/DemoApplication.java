@@ -1,75 +1,42 @@
 package com.example.demo;
 
-import java.awt.EventQueue;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.*;
 
 import javax.swing.JFrame;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+
 @SpringBootApplication
+@ComponentScan({"com.example.demo"})
 @EnableJpaRepositories("com.example.demo")
-@EntityScan("com.example.demo")
-public class DemoApplication extends JFrame{
-
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-
-	public static ConfigurableApplicationContext ct;
-
-	// @Autowired
-	// private static EmployeeRepository employeeRepository;
+public class DemoApplication extends JFrame implements CommandLineRunner{
 
 	@Autowired
 	private SearchEmployeeService searchEmployeeService;
 
-	List<Employee> employee_list = new ArrayList<Employee>();
-
-	public DemoApplication() {
-
-		List<Employee> employee_list = searchEmployeeService.getEmpployees(ct);
-
-		if (employee_list.size() > 0) {
-			for (Employee employee : employee_list) {
-				System.out.println("RFC" + employee.getRfc());
-			}
-		}
-
-		setTitle("Lector de Huella Digital");
-		setSize(300, 200);
-		setResizable(false);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
-
 	public static void main(String[] args) {
-		ct = new SpringApplicationBuilder(DemoApplication.class).headless(false)
-				.run(args);
-		EventQueue.invokeLater(() -> {
-			ct.getBean(DemoApplication.class).setVisible(true);
-		});
-
-		/*employeeRepository = ct.getBean(EmployeeRepository.class);
-
-		List<Employee> employee_list = employeeRepository.findAll();
-
-		if (employee_list.size() > 0) {
-			System.out.println("Mayor a 0");
-			for (Employee employee : employee_list) {
-				System.out.println("RFC"+employee.getRfc());
-			}
-		} else {
-			System.out.println("Menor a 0");
-		}*/
+        SpringApplication.run(DemoApplication.class, args);
+	}
+	
+	@Override
+    public void run(String... args) throws Exception {
+		List<Employee> employee_list = searchEmployeeService.getEmpployees();
+		
+		JFrame frame = new JFrame("Mi primera GUI");      
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
+        frame.setSize(300, 300);      
+        JButton button1 = new JButton("Presionar");      
+        frame.getContentPane().add(button1);     
+        frame.setVisible(true);
+		
 	}
 
 }
