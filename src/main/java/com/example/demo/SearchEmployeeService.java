@@ -11,12 +11,15 @@ public class SearchEmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
     
-    public List<Employee> getEmpployees(){
-		List<Employee> employee_list = employeeRepository.findAll();
+    public void getEmpployeeByNumber(){
+    //public void getEmpployeeByNumber(String employeeNumber){
+        //Employee employee = new Employee();
+        System.out.println("--------->>>>WENTRE AL METDOO");
+		//Employee employee = employeeRepository.findByEmployeeNumber(employeeNumber);
 
-		if (employee_list.size() > 0) {
-			System.out.println("Mayor a 0");
-        }
-        return employee_list;
+		/*if (employee != null) {
+			System.out.println("EL RFC: "+employee.getRfc());
+        }*/
+        //return employee;
     }
 }

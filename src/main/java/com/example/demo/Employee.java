@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,9 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(name="employee_number")
+	private String employeeNumber;
+
 	private String rfc;
 	
 	public Employee(){
@@ -25,6 +29,14 @@ public class Employee {
 	
 	public void setId(Integer id){
 		this.id = id;
+	}
+
+	public String getEmployeeNumber(){
+		return this.employeeNumber;
+	}
+
+	public void setEmployeeNumber(String employeeNumber){
+		this.employeeNumber = employeeNumber;
 	}
 	
 	public String getRfc(){
